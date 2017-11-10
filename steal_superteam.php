@@ -18,6 +18,7 @@ if ($data = $memcache->get('memory')){
         if ($last_known > $new_number){
                 $data = ARRAY("amount-raised" => $last_known);
                 $memcache->set('memory', $data, false, 5) or die ("Failed to save data at the server");
+                $memcache->set('last_known', intval(round($last_known)), false, 0) or die ("Failed to save data at the server");
                 echo json_encode($data);
         }else{ // if the last known number is SMALLER, use the new number and update the old number.
                 $data = ARRAY("amount-raised" => $new_number);

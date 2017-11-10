@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+        <head>
+                <meta charset="utf-8">
+                <title>ExtraLifeTicker</title>
+                <script src="jquery-3.2.1.min.js"></script>
+                <script>
+                        counts = {};
+
+                        function format_number(text){
+                                return text.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+                        };
+
+                        function magic_number(element_name, value) {
+                                var elem = $(element_name);
+                                var current = counts[element_name] || 0;
+                                $({count: current}).animate({count: value}, {
+                                duration: 30000,
+                                step: function() {
+                                elem.text(format_number(String(parseInt(this.count))));
+                                }});
+                                counts[element_name] = value;
+                        };
+
+                        function update() {
+                                var jqxhr = $.getJSON("steal_superteam.php", function(data) {
+                                magic_number("#number1", data['amount-raised']);
+                                });
+                        };
+
+                        setInterval(update, 30000);
+                        update();
+                </script>
+                <style>
+                        body{
+                                background-image: url('EL2017BG.png');
+                                background-color: #cccccc;
+                        }
+                        .count{
+                                font-size: 2000%;
+                                color: white;
+                                font-family: 'Bombardier';
+                                font-style: normal;
+                                font-weight: normal;
+                                src: local('Bombardier'), url('Bombardier.ttf') format('truetype');
+                                position: fixed;
+                                top: 50%;
+                                left: 50%;
+                                transform: translate(-50%, -50%);
+                        }
+                </style>
+        </head>
+
+        <body>
+        <div class="count">$<span id="number1">0</span></div>
+        </body>
+</html>

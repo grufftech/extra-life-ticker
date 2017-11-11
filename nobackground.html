@@ -15,7 +15,7 @@
                                 var elem = $(element_name);
                                 var current = counts[element_name] || 0;
                                 $({count: current}).animate({count: value}, {
-                                duration: 30000,
+                                duration: 5000,
                                 step: function() {
                                 elem.text(format_number(String(parseInt(this.count))));
                                 }});
@@ -23,12 +23,12 @@
                         };
 
                         function update() {
-                                var jqxhr = $.getJSON("steal_superteam.php", function(data) {
+                                var jqxhr = $.getJSON("get_extralife_number.php", function(data) {
                                 magic_number("#number1", data['amount-raised']);
                                 });
                         };
 
-                        setInterval(update, 30000);
+                        setInterval(update, 5000);
                         update();
                 </script>
                 <style>

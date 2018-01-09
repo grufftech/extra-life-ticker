@@ -9,7 +9,7 @@ $memcache->connect('localhost', 11211) or die ("Could not connect");
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "https://api.donordrive.com/extralife/export/RT2017totals.json",
+  CURLOPT_URL => $DDurl,
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => "",
   CURLOPT_MAXREDIRS => 10,
@@ -19,8 +19,7 @@ curl_setopt_array($curl, array(
   CURLOPT_HTTPHEADER => array(
     "cache-control: no-cache",
     "donordrive-email: ".$DDemail,
-    "donordrive-password: ".$DDpw,
-    "postman-token: d58ff0dc-33fb-d65b-eafd-70b8bf4d8586"
+    "donordrive-password: ".$DDpw
   ),
 ));
 
